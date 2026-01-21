@@ -31,25 +31,25 @@ header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 15px 5%; 
 .hero h1 { font-size: 3.5rem; margin-bottom: 15px; }
 .hero p { font-size: 1.2rem; margin-bottom: 25px; opacity: 0.9; }
 
-/* ღილაკის გაზრდილი სტილები */
+/* ღილაკის გაზრდილი სტილები - აქ გავზარდეთ ზომები */
 .btn-primary {
-    padding: 18px 45px; /* გაზრდილი ზომა */
-    font-size: 1.3rem; /* გაზრდილი ტექსტი */
-    font-weight: 700;
+    padding: 20px 50px; 
+    font-size: 1.4rem; 
+    font-weight: 800;
     color: white;
     background-color: var(--primary);
     border: none;
     border-radius: 50px;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+    box-shadow: 0 8px 20px rgba(56, 189, 248, 0.5);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 6px 25px rgba(56, 189, 248, 0.6);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 12px 30px rgba(56, 189, 248, 0.7);
     background-color: #0ea5e9;
 }
 
@@ -60,12 +60,22 @@ section { padding: 80px 10%; }
 .game-card:hover { transform: translateY(-10px); border-color: var(--primary); }
 .game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
 
-/* About სექცია */
+/* About სექცია - სურათის ფიქსაცია */
 .about-container { display: flex; align-items: center; gap: 50px; }
 .about-text { flex: 1; }
 .about-img { flex: 1; text-align: center; }
-.about-img img { width: 100%; max-width: 400px; filter: drop-shadow(0 0 20px var(--primary)); }
+.about-img img { 
+    width: 100%; 
+    height: auto; 
+    min-height: 300px;
+    max-width: 500px; 
+    border-radius: 20px;
+    object-fit: cover;
+    filter: drop-shadow(0 0 20px var(--primary)); 
+    display: block;
+}
 
 /* ფორმა */
 .form-container { max-width: 450px; margin: auto; background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid #334155; }
-input { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark); border: 1px solid #3341
+input { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark); border: 1px solid #334155; color: white; border-radius: 8px; outline: none; }
+input:focus { border-color: var(--primary); }
