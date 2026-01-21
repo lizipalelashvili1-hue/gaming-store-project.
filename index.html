@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStore | საფინალო პროექტი</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header id="mainHeader">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/512/686/686589.png" alt="Logo" id="logoImg">
+                <span>GameStore</span>
+            </a>
+            <ul class="nav-links" id="navMenu">
+                <li><a href="#home">მთავარი</a></li>
+                <li><a href="#games">თამაშები</a></li>
+                <li><a href="#about">ჩვენს შესახებ</a></li>
+                <li><a href="#contact">კონტაქტი</a></li>
+            </ul>
+            <div class="burger" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero animate__animated animate__fadeIn">
+            <h1>Level Up Your Play</h1>
+            <p>საუკეთესო პლატფორმა გეიმერებისთვის</p>
+            <button class="btn-primary" onclick="window.location.href='#games'">დაიწყე ახლა</button>
+        </section>
+
+        <section id="games" class="games-section">
+            <h2 class="section-title">პოპულარული თამაშები</h2>
+            <div id="gamesContainer" class="games-grid">
+                <p>იტვირთება მონაცემები...</p>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="about-container">
+                <div class="about-text">
+                    <h2>ჩვენს შესახებ</h2>
+                    <p>ჩვენი მაღაზია გთავაზობთ უახლეს ციფრულ პროდუქტებსა და აქსესუარებს. Level Up Your Experience!</p>
+                </div>
+                <div class="about-img">
+                    <img src="https://www.pngmart.com/files/12/Gaming-PC-PNG-Transparent-Image.png" alt="Gaming Setup">
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="form-container">
+                <h2>რეგისტრაცია</h2>
+                <form id="contactForm">
+                    <input type="text" id="username" placeholder="სახელი და გვარი">
+                    <input type="email" id="email" placeholder="ელ-ფოსტა">
+                    <div class="pass-box">
+                        <input type="password" id="password" placeholder="პაროლი">
+                        <span id="togglePass">👁️</span>
+                    </div>
+                    <button type="submit" class="btn-submit">გაგზავნა</button>
+                    <p id="formError" class="error-msg"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 GameStore. ყველა უფლება დაცულია.</p>
+    </footer>
+
+    <div id="cookieBar" class="cookie-notification">
+        <p>ჩვენ ვიყენებთ ქუქი ფაილებს 🍪</p>
+        <button id="acceptCookies">ვეთანხმები</button>
+    </div>
+
+    <button id="scrollTop">↑</button>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
