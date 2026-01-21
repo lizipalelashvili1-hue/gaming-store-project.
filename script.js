@@ -1,18 +1,15 @@
-// 1. API - თამაშების წამოღება და გამოჩენა
+// 1. API - თამაშების წამოღება და გამოჩენა (Axios)
 async function fetchGames() {
     try {
-        // ვიყენებთ Axios-ს მონაცემების წამოსაღებად
         const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=3');
         const container = document.getElementById('gamesContainer');
         
-        // საიმედო სურათების ლინკები
         const images = [
             "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400",
             "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400",
             "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400"
         ];
         
-        // ვასუფთავებთ კონტეინერს და ვამატებთ ბარათებს
         container.innerHTML = response.data.map((item, index) => `
             <div class="game-card animate__animated animate__fadeInUp">
                 <img src="${images[index]}" alt="Game Image">
@@ -26,22 +23,21 @@ async function fetchGames() {
 }
 fetchGames();
 
-// 2. ბურგერ მენიუს ფუნქციონალი
+// 2. ბურგერ მენიუ
 const burger = document.getElementById('burgerMenu');
 const nav = document.getElementById('navMenu');
 
 if (burger) {
     burger.onclick = () => {
-        nav.classList.toggle('active'); // ამატებს/აშორებს 'active' კლასს
+        nav.classList.toggle('active');
     };
 }
 
-// 3. ფორმის ვალიდაცია (Regex & Empty fields)
+// 3. ფორმის ვალიდაცია (Regex & Toggle Password)
 const contactForm = document.getElementById('contactForm');
 const passInput = document.getElementById('password');
 const togglePass = document.getElementById('togglePass');
 
-// პაროლის გამოჩენა/დამალვა
 if (togglePass) {
     togglePass.onclick = () => {
         passInput.type = passInput.type === 'password' ? 'text' : 'password';
@@ -57,7 +53,6 @@ if (contactForm) {
         const password = passInput.value.trim();
         const errorDisplay = document.getElementById('formError');
         
-        // Regex იმეილის ფორმატისთვის
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!username || !email || !password) {
@@ -78,26 +73,43 @@ if (contactForm) {
 const cookieBar = document.getElementById('cookieBar');
 const acceptBtn = document.getElementById('acceptCookies');
 
-// ვამოწმებთ, უკვე დაეთანხმა თუ არა მომხმარებელი
 if (cookieBar && !localStorage.getItem('myCookies')) {
-    cookieBar.style.display = 'block';
+    cookieBar.style.display = 'flex'; // შევცვალეთ flex-ზე, რომ დიზაინი არ აირიოს
 }
 
 if (acceptBtn) {
     acceptBtn.onclick = () => {
-        localStorage.setItem('myCookies', 'true'); // ვინახავთ ბრაუზერში
+        localStorage.setItem('myCookies', 'true');
         cookieBar.style.display = 'none';
     };
 }
 
-// 5. დამატებითი ლოგიკა: Header-ის ფერის შეცვლა სქროლისას
+// 5. დამატებითი ლოგიკა: Header & Scroll Top Button
+const scrollTopBtn = document.getElementById('scrollTop');
+
 window.onscroll = () => {
     const header = document.getElementById('mainHeader');
+    
+    // Header-ის ეფექტი
     if (window.scrollY > 50) {
         header.style.background = "rgba(15, 23, 42, 0.95)";
-        header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.5)";
+        header.style.padding = "10px 5%";
     } else {
         header.style.background = "rgba(15, 23, 42, 0.8)";
-        header.style.boxShadow = "none";
+        header.style.padding = "15px 5%";
+    }
+
+    // Scroll Top ღილაკის გამოჩენა
+    if (window.scrollY > 300) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
     }
 };
+
+// ზემოთ ასვლის ფუნქცია
+if (scrollTopBtn) {
+    scrollTopBtn.onclick = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+}
