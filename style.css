@@ -1,72 +1,44 @@
-/* ძირითადი ცვლადები */
-:root {
-    --primary: #38bdf8;
-    --dark: #0f172a;
-    --card-bg: #1e293b;
-    --text: #f1f5f9;
+/* პროდუქტების ბარათების გასწორება */
+.games-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px 0;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-html { scroll-behavior: smooth; }
-body { background: var(--dark); color: var(--text); overflow-x: hidden; }
+.game-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 15px;
+    width: 250px; /* ბარათის ზომა */
+    text-align: center;
+    border: 1px solid #334155;
+}
 
-/* ლოგო */
-#logoImg { width: 45px !important; height: auto; }
+.game-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
 
-/* ნავიგაცია */
-header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 15px 5%; transition: 0.4s; background: rgba(15, 23, 42, 0.8); }
-.navbar { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.5rem; }
+/* "ჩვენს შესახებ" სექციის გასწორება */
+.about-container {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 30px;
+}
 
-.nav-links { display: flex; list-style: none; gap: 30px; }
-.nav-links a { text-decoration: none; color: white; transition: 0.3s; font-weight: 400; }
-.nav-links a:hover { color: var(--primary); }
+.about-img img {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+}
 
-/* ბურგერ ხატულა */
-.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-.burger span { width: 25px; height: 3px; background: var(--primary); transition: 0.3s; }
-
-/* Hero სექცია */
-.hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200'); background-size: cover; background-position: center; }
-.hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
-
-/* თამაშების ბადე (API) */
-section { padding: 80px 10%; }
-.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-top: 30px; }
-.game-card { background: var(--card-bg); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #334155; transition: 0.3s; }
-.game-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-.game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-
-/* About სექცია */
-.about-container { display: flex; align-items: center; gap: 50px; }
-.about-text { flex: 1; }
-.about-img { flex: 1; text-align: center; }
-.about-img img { width: 100%; max-width: 400px; filter: drop-shadow(0 0 20px var(--primary)); }
-
-/* ფორმა */
-.form-container { max-width: 450px; margin: auto; background: var(--card-bg); padding: 40px; border-radius: 20px; border: 1px solid #334155; }
-input { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark); border: 1px solid #334155; color: white; border-radius: 8px; outline: none; }
-input:focus { border-color: var(--primary); }
-.btn-submit { width: 100%; padding: 12px; background: var(--primary); border: none; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; }
-.btn-submit:hover { opacity: 0.9; transform: scale(1.02); }
-.error-msg { font-size: 14px; margin-top: 10px; text-align: center; font-weight: bold; min-height: 20px; }
-
-/* Cookies Notification */
-.cookie-notification { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--card-bg); padding: 20px 40px; border-radius: 50px; border: 1px solid var(--primary); display: flex; align-items: center; gap: 20px; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-#acceptCookies { background: var(--primary); border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-
-/* Responsive (მობილური ვერსია) */
-@media (max-width: 768px) {
-    .burger { display: flex; }
-    
-    .nav-links { 
-        position: absolute; right: 0; top: 70px; height: 100vh; background: var(--dark); 
-        flex-direction: column; width: 70%; align-items: center; padding-top: 50px; 
-        transform: translateX(100%); transition: 0.5s; box-shadow: -10px 0 20px rgba(0,0,0,0.5);
-    }
-    
-    .nav-links.active { transform: translateX(0); } /* ბურგერის გააქტიურება */
-
-    .about-container { flex-direction: column; text-align: center; }
-    .hero h1 { font-size: 2.2rem; }
+/* ლოგოს გასწორება */
+#logoImg {
+    width: 50px !important;
+    height: auto;
 }
