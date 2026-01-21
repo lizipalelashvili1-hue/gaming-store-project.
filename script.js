@@ -1,84 +1,104 @@
-/* ძირითადი სტილები */
-:root {
-    --primary: #38bdf8;
-    --dark: #0f172a;
-    --card-bg: #1e293b;
-    --text: #f1f5f9;
+// 1. API - თამაშების წამოღება და გამოჩენა
+async function fetchGames() {
+    try {
+        // ვიყენებთ Axios-ს მონაცემების წამოსაღებად
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=3');
+        const container = document.getElementById('gamesContainer');
+        
+        // საიმედო სურათების ლინკები
+        const images = [
+            "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400",
+            "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400",
+            "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400"
+        ];
+        
+        // ვასუფთავებთ კონტეინერს და ვამატებთ ბარათებს
+        container.innerHTML = response.data.map((item, index) => `
+            <div class="game-card animate__animated animate__fadeInUp">
+                <img src="${images[index]}" alt="Game Image">
+                <h3>პროდუქტი ${index + 1}</h3>
+                <p>${item.title.slice(0, 20)}...</p>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error("API Error:", error);
+    }
+}
+fetchGames();
+
+// 2. ბურგერ მენიუს ფუნქციონალი
+const burger = document.getElementById('burgerMenu');
+const nav = document.getElementById('navMenu');
+
+if (burger) {
+    burger.onclick = () => {
+        nav.classList.toggle('active'); // ამატებს/აშორებს 'active' კლასს
+    };
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-html { scroll-behavior: smooth; }
-body { background: var(--dark); color: var(--text); overflow-x: hidden; }
+// 3. ფორმის ვალიდაცია (Regex & Empty fields)
+const contactForm = document.getElementById('contactForm');
+const passInput = document.getElementById('password');
+const togglePass = document.getElementById('togglePass');
 
-/* ლოგოს ზომის კონტროლი */
-#logoImg {
-    width: 50px !important;
-    height: auto;
-    display: block;
+// პაროლის გამოჩენა/დამალვა
+if (togglePass) {
+    togglePass.onclick = () => {
+        passInput.type = passInput.type === 'password' ? 'text' : 'password';
+    };
 }
 
-/* ნავიგაცია */
-header { position: fixed; width: 100%; top: 0; z-index: 1000; padding: 20px 5%; transition: 0.4s; }
-header.scrolled { background: rgba(15, 23, 42, 0.95); padding: 10px 5%; border-bottom: 1px solid var(--primary); }
-.navbar { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: 800; font-size: 1.5rem; }
+if (contactForm) {
+    contactForm.onsubmit = function(event) {
+        event.preventDefault();
+        
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = passInput.value.trim();
+        const errorDisplay = document.getElementById('formError');
+        
+        // Regex იმეილის ფორმატისთვის
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-.nav-links { display: flex; list-style: none; gap: 30px; }
-.nav-links a { text-decoration: none; color: white; transition: 0.3s; font-weight: 500; }
-.nav-links a:hover { color: var(--primary); }
-
-/* Burger Menu */
-.burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-.burger span { width: 25px; height: 3px; background: white; transition: 0.3s; }
-
-/* Hero Section */
-.hero { height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1470'); background-size: cover; background-position: center; }
-.hero h1 { font-size: 3.5rem; margin-bottom: 15px; }
-
-/* Grid for API Games */
-.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 40px; }
-.game-card { background: var(--card-bg); padding: 20px; border-radius: 15px; text-align: center; transition: 0.3s; border: 1px solid #334155; }
-.game-card:hover { transform: translateY(-10px); border-color: var(--primary); }
-.game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-
-/* Sections */
-section { padding: 80px 10%; }
-.about-container { display: flex; align-items: center; gap: 40px; }
-
-/* გასწორებული About Image სტილი */
-.about-img {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-}
-.about-img img { 
-    width: 100%; 
-    max-width: 450px; 
-    height: auto;
-    object-fit: cover;
-    filter: drop-shadow(0 0 15px var(--primary)); 
-    border-radius: 12px;
+        if (!username || !email || !password) {
+            errorDisplay.innerText = "❌ შეავსეთ ყველა ველი!";
+            errorDisplay.style.color = "#ef4444";
+        } else if (!emailPattern.test(email)) {
+            errorDisplay.innerText = "❌ ელ-ფოსტის ფორმატი არასწორია!";
+            errorDisplay.style.color = "#ef4444";
+        } else {
+            errorDisplay.innerText = "✅ წარმატებით გაიგზავნა!";
+            errorDisplay.style.color = "#38bdf8";
+            contactForm.reset();
+        }
+    };
 }
 
-/* Form Styles */
-.form-container { max-width: 450px; margin: auto; background: var(--card-bg); padding: 40px; border-radius: 15px; }
-input { width: 100%; padding: 12px; margin-bottom: 15px; background: var(--dark); border: 1px solid #334155; color: white; border-radius: 8px; outline: none; }
-.pass-box { position: relative; }
-#togglePass { position: absolute; right: 10px; top: 12px; cursor: pointer; }
-.btn-submit, .btn-primary { padding: 12px 25px; background: var(--primary); border: none; font-weight: bold; cursor: pointer; border-radius: 8px; transition: 0.3s; color: #0f172a; }
-.btn-submit:hover { transform: scale(1.03); background: #0ea5e9; }
+// 4. Cookies (LocalStorage)
+const cookieBar = document.getElementById('cookieBar');
+const acceptBtn = document.getElementById('acceptCookies');
 
-/* Footer & Extras */
-footer { text-align: center; padding: 40px; background: #020617; }
-.cookie-notification { position: fixed; bottom: 20px; left: 20px; background: white; color: black; padding: 20px; border-radius: 10px; z-index: 2000; display: none; }
-#scrollTop { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: var(--primary); border: none; border-radius: 50%; color: white; cursor: pointer; display: none; }
-
-/* Responsive */
-@media (max-width: 768px) {
-    .nav-links { position: fixed; right: -100%; top: 70px; background: var(--dark); width: 100%; height: 100vh; flex-direction: column; padding: 50px; transition: 0.5s; text-align: center; }
-    .nav-links.active { right: 0; }
-    .burger { display: flex; }
-    .about-container { flex-direction: column; }
-    .hero h1 { font-size: 2.2rem; }
+// ვამოწმებთ, უკვე დაეთანხმა თუ არა მომხმარებელი
+if (cookieBar && !localStorage.getItem('myCookies')) {
+    cookieBar.style.display = 'block';
 }
+
+if (acceptBtn) {
+    acceptBtn.onclick = () => {
+        localStorage.setItem('myCookies', 'true'); // ვინახავთ ბრაუზერში
+        cookieBar.style.display = 'none';
+    };
+}
+
+// 5. დამატებითი ლოგიკა: Header-ის ფერის შეცვლა სქროლისას
+window.onscroll = () => {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 50) {
+        header.style.background = "rgba(15, 23, 42, 0.95)";
+        header.style.boxShadow = "0 2px 10px rgba(0,0,0,0.5)";
+    } else {
+        header.style.background = "rgba(15, 23, 42, 0.8)";
+        header.style.boxShadow = "none";
+    }
+};
   
