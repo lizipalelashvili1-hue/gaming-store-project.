@@ -101,4 +101,3 @@ window.onscroll = () => {
         header.style.boxShadow = "none";
     }
 };
-  
