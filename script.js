@@ -1,38 +1,50 @@
-:root {
-    --primary: #38bdf8;
-    --dark: #0f172a;
-    --card-bg: #1e293b;
-    --text: #f1f5f9;
+// 1. API - თამაშების წამოღება
+async function fetchGames() {
+    try {
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=3');
+        const container = document.getElementById('gamesContainer');
+        const images = [
+            "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400",
+            "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400",
+            "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400"
+        ];
+        
+        container.innerHTML = response.data.map((item, index) => `
+            <div class="game-card animate__animated animate__fadeInUp">
+                <img src="${images[index]}" alt="Game">
+                <h3>პროდუქტი ${index + 1}</h3>
+                <p>აღწერა API-დან</p>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error("API Error");
+    }
 }
+fetchGames();
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-body { background: var(--dark); color: var(--text); overflow-x: hidden; }
+// 2. ფორმის ვალიდაცია
+const contactForm = document.getElementById('contactForm');
 
-/* ლოგოს ზომის შეზღუდვა */
-#logoImg { width: 50px !important; height: auto; display: block; }
+if (contactForm) {
+    contactForm.onsubmit = function(event) {
+        event.preventDefault();
+        
+        const email = document.getElementById('email').value.trim();
+        const errorDisplay = document.getElementById('formError');
+        
+        // რეგულარული გამოსახულება ელ-ფოსტისთვის
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-header { padding: 20px 5%; background: rgba(15, 23, 42, 0.95); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--primary); }
-.navbar { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--primary); font-weight: bold; font-size: 1.5rem; }
-.nav-links { display: flex; list-style: none; gap: 25px; }
-.nav-links a { text-decoration: none; color: white; transition: 0.3s; }
-.nav-links a:hover { color: var(--primary); }
-
-.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(rgba(15,23,42,0.8), rgba(15,23,42,0.8)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1000'); background-size: cover; background-position: center; text-align: center; }
-.hero h1 { font-size: 3rem; margin-bottom: 10px; }
-
-section { padding: 60px 10%; }
-.games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
-.game-card { background: var(--card-bg); padding: 20px; border-radius: 15px; text-align: center; border: 1px solid #334155; }
-.game-card img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-
-.about-container { display: flex; align-items: center; gap: 40px; }
-.about-img img { width: 100%; max-width: 350px; filter: drop-shadow(0 0 15px var(--primary)); }
-
-.form-container { max-width: 450px; margin: auto; background: var(--card-bg); padding: 35px; border-radius: 15px; border: 1px solid #334155; }
-input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #334155; background: var(--dark); color: white; outline: none; }
-input:focus { border-color: var(--primary); }
-.btn-submit { width: 100%; padding: 12px; background: var(--primary); border: none; cursor: pointer; font-weight: bold; border-radius: 8px; transition: 0.3s; }
-.btn-submit:hover { transform: scale(1.02); }
-
-.error-msg { margin-top: 10px; font-weight: bold; text-align: center; min-height: 20px; }
+        if (!email) {
+            errorDisplay.innerText = "❌ გთხოვთ შეიყვანოთ ელ-ფოსტა!";
+            errorDisplay.style.color = "#ef4444";
+        } else if (!emailPattern.test(email)) {
+            errorDisplay.innerText = "❌ ელ-ფოსტის ფორმატი არასწორია!";
+            errorDisplay.style.color = "#ef4444";
+        } else {
+            errorDisplay.innerText = "✅ წარმატებით გაიგზავნა!";
+            errorDisplay.style.color = "#38bdf8";
+            contactForm.reset();
+        }
+    };
+}
